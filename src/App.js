@@ -6,6 +6,7 @@ import Nav from "./Nav";
 import Auth from "./auth/Auth";
 import Callback from "./Callback";
 import Public from "./Public";
+import Private from "./Private";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +39,16 @@ class App extends React.Component {
             }
           />
           <Route path="/public" component={Public} />
+          <Route
+            path="/private"
+            render={props =>
+              this.auth.isAuthenticated() ? (
+                <Private auth={this.auth} {...props} />
+              ) : (
+                this.auth.login()
+              )
+            }
+          />
         </div>
       </>
     );
